@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Selenium playground</title>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<link rel="stylesheet" href="main.css">
+<style>
+#draggable { width: 50px; height: 50px; padding: 0.5em; }
+</style>
+<script>
+$(document).ready(function() {
+	$( "#draggable" ).draggable();
+
+	$("#getcars").on('click', function(){
+		$("#selectedcars").text("");
+		$('#multiplecars :selected').each(function(i, selected){ 
+		  $("#selectedcars").append($(selected).text() + "<br/>");
+		});	
+		return false;	
+	})
+
+	if(typeof(Storage) !== "undefined") {
+	    // Code for localStorage/sessionStorage.
+	    $("#storagesupport").text("HTML5 web storage supported");
+	    localStorage.setItem("firstname", "Jason");
+	    localStorage.setItem("lastname", "Bourne");
+	} else {
+	    // Sorry! No Web Storage support..
+	     $("#storagesupport").text("Sorry! No Web Storage support..");
+	}	
+
+
+	$("#printstorage").on('click', function(){
+		$("#storageval").text("");
+		for (var key in localStorage){
+	   		$("#storageval").append(key + "=" + localStorage.getItem(key) + "<br/>");
+		}
+		return false;
+	});
+
+	$("#openModal").on('click', function(){
+		  var w = window.open('','This is new window','width=600, height=600');
+		  $(w.document.body).html("You have opened a new window");
+		  return false;
+	})
+
+});
+</script>
+</head>
+<body>
+
+<a href="/selenium-test/test"> Test page </a> <br/>
+<a href="/selenium-test/frame"> Frame page </a> <br/>
+<a id="openModal" href="#" >Open a new window</a> <br/>
+
+<h2> Drag & Drop </h2>
+<div class="ui-widget-content">
+	<p id="draggable">Drag me around</p>
+</div>
+
+<h2> Multiple elements </h2>
+<div id="navcontainer">
+<ul>
+<li class="food"><a href="#">Milk</a></li>
+<li class="food" id="active"><a href="#">Eggs</a></li>
+<li><a href="#">Cheese</a></li>
+<li><a href="#">Vegetables</a></li>
+<li><a href="#">Fruit</a></li>
+</ul>
+</div> 
+
+<h2> Change page title </h2>
+<form action="/" method="get">
+  <input type="text" id="q" name="post[title]" />
+  <input type="submit" value="Submit" />
+</form>
+
+<h2> Multiple select </h2>
+<a href="#" id="getcars">Get selected values</a><br/>
+<div id="selectedcars"></div> <br/>
+<select multiple id="multiplecars">
+  <option value="volvo">Volvo</option>
+  <option value="saab">Saab</option>
+  <option value="mercedes">Mercedes</option>
+  <option value="audi">Audi</option>
+</select>
+
+<h2> HTML Local Storage </h2>
+<div id="storagesupport"></div><br/>
+<a href="#" id="printstorage">Print all the localstorage values</a><br/>
+<div id="storageval"></div><br/>
+
+<h3>Ordered List Example</h3>
+<ol>
+<li>ordered item 1<ol><li>Subitem 1</li><li>Subitem 2</li></ol></li> 
+<li>ordered item 2</li> 
+<li>ordered item 3</li> 
+<li>ordered item 4</li> 
+<li>ordered item 5</li> 
+</ol>
+
+<h3>Unordered List Example</h3>
+<ul>
+<li>unordered item 1<ul><li>Subitem 1</li><li>Subitem 2</li></ul></li> 
+<li>unordered item 2</li> 
+<li>unordered item 3</li> 
+<li>unordered item 4</li> 
+<li>unordered item 5</li> 
+</ul></div>
+
+<form name="form" id="testform" method="post" action="processForm">
+<h3>Test Form</h3>
+<fieldset>
+<ol>  
+<li>  
+	<label for="testname" accesskey="n">Name</label>
+	<input type="text" name="testname" id="testname" value="" tabindex="1">
+</li>
+<li> 
+	<label for="testemail" accesskey="e">Email</label>
+	<input type="text" name="testemail" id="testemail" value="" tabindex="2"> 
+</li>
+<li> 
+	<label for="testcheckbox" accesskey="p">Checkbox</label>
+	<input type="checkbox" name="testcheckbox" id="testcheckbox" value="true" tabindex="3">
+</li>
+<li> 
+	<label for="testcolor" accesskey="p">Color</label>
+	<select name="testcolor" id="testcolor">
+	          <option value="green" selected="selected">green</option>
+	          <option value="blue">blue</option>
+	          <option value="yellow">yellow</option>
+	</select>
+</li>
+<li> 
+<label for="testmultiple" accesskey="p">Colors</label>
+	<select name="testmultiple[]" id="testmultiple" multiple="multiple" size="5">
+	          <option value="green" selected="selected">green</option>
+	          <option value="blue">blue</option>
+	          <option value="red">red</option>
+	          <option value="gray">gray</option>
+	          <option value="yellow" selected="selected">yellow</option>
+	</select>
+</li>
+</ol>
+</fieldset>
+<input type="submit" value="submit" id="submit" tabindex="11"><br>
+</form>
+
+</body>
+</html>
+
